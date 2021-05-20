@@ -16,55 +16,39 @@
 
 pragma solidity ^0.8.3;
 
-/**
- * @dev Interface of the ERC20 standard as defined in the EIP.
- */
- /* Definimos la interfaz, aqui solo declaramos funciones, no las definimos. */
+
+// Interface del estándar ERC20, como es definido en la EIP.
+// Definimos la interfaz, aqui solo declaramos funciones, no las definimos.
 interface IERC20 {
-    /**
-     * @dev Returns the amount of tokens in existence.
-     * Retorna la cantidad de unidades que actualmente existen del token (variable o fijo)
-     */
+
+    // Retorna la cantidad de unidades que actualmente existen del token (variable o fijo).
     function totalSupply() external view returns (uint256);
 
-    /**
-     * @dev Returns the amount of tokens owned by `account`.
-     * Dado un address, devolvemos el balance de esa "cuenta"
-     */
+    // Dado un address, devolvemos el balance (cantidad de tokens) de esa "cuenta".
     function balanceOf(address account) external view returns (uint256);
 
-    /**
-     * @dev Moves `amount` tokens from the caller's account to `recipient`.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
+    // Mueve el número "amount" de la cuenta que llama a esta función a la cuenta "recipient".
+    // Retorna un booleano indicando si la operación tuvo éxito.
+    // Emite un evento "Transfer".
     function transfer(address recipient, uint256 amount) external returns (bool);
 
-    /**
-     * @dev Returns the remaining number of tokens that `spender` will be
-     * allowed to spend on behalf of `owner` through {transferFrom}. This is
-     * zero by default.
-     *
-     * This value changes when {approve} or {transferFrom} are called.
-     */
+    // Retorna la cantidad restante de tokens que la cuenta "spender" tendrá permitido gastar en 
+    // nombre de "owner" a travez de la función "transferFrom". Es 0 por defecto.
+    // El valor cambia cuando las funciones "approve" o "transferFrom" son llamadas.
     function allowance(address owner, address spender) external view returns (uint256);
 
-    /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * IMPORTANT: Beware that changing an allowance with this method brings the risk
-     * that someone may use both the old and the new allowance by unfortunate
-     * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender's allowance to 0 and set the
-     * desired value afterwards:
-     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-     *
-     * Emits an {Approval} event.
-     */
+    /*
+    Establece la cantidad "amount" como la tolerancia que se le da a "spender" sobre los tokens 
+    que requiere.
+    Retorna un booleano indicando si la operación tuvo éxito.
+    
+    IMPORTANTE: Hay que estar consiente de que cambiar la tolerancia con este método trae el 
+    riesgo de que alguien pueda usar la antigua y la nueva tolerancia en una transacción no 
+    válida. Una posible solución a esta "race condition" es primero reducir la tolerancia a 0 y 
+    luego a la deseada: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+    
+    Emite un evento "Approval".
+    */
     function approve(address spender, uint256 amount) external returns (bool);
 
     /**
