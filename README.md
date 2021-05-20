@@ -2,7 +2,9 @@
 
 Token construido sobre Ethereum usando Solidity para Migala.
 
-## Convención para comentarios en Solidity
+## Convenciones para Solidity
+
+### Comentarios
 
 Usar comentarios de línea (`//`) para comentarios cortos.
 
@@ -26,3 +28,11 @@ continua comentario ...
 continua comentario ...
 */
 ```
+
+### Espacios
+
+Se prefieren los espacios como método de indentación, se deben usar 4 espacios para ello.
+
+### Máximo tamaño de línea
+
+Una línea no debe sobrepasar 99 caracteres.
