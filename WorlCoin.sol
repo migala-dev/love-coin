@@ -42,7 +42,7 @@ interface IERC20 {
     que requiere.
     Retorna un booleano indicando si la operación tuvo éxito.
     
-    IMPORTANTE: Hay que estar consiente de que cambiar la tolerancia con este método trae el 
+    IMPORTANTE: Hay que estar consciente de que cambiar la tolerancia con este método trae el 
     riesgo de que alguien pueda usar la antigua y la nueva tolerancia en una transacción no 
     válida. Una posible solución a esta "race condition" es primero reducir la tolerancia a 0 y 
     luego a la deseada: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
@@ -51,48 +51,32 @@ interface IERC20 {
     */
     function approve(address spender, uint256 amount) external returns (bool);
 
-    /**
-     * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller's
-     * allowance.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
+    // Mueve la cantidad "amount" de tokens desde "sender" a "recipient" usando el mecanismo de 
+    // tolerancia. La cantidad "amount" es restada de la dirección que llama la función.
+    // Retorna un booleano indicando si la operación tuvo éxito. Emite un evento "Transfer".
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
 
-    /**
-     * @dev Emitted when `value` tokens are moved from one account (`from`) to
-     * another (`to`).
-     *
-     * Note that `value` may be zero.
-     */
+    // Emitido cuando la cantidad de tokens "valor" son movidos de una cuenta ("from") a otra 
+    // ("to"). El valor de "value" puede ser 0.
     event Transfer(address indexed from, address indexed to, uint256 value);
 
-    /**
-     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
-     * a call to {approve}. `value` is the new allowance.
-     */
+    // Emitido cuando la autorización de "spender" para un "owner" es establecida por una llamada 
+    // a "approve()", "value" es la nueva autorización.
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-// CAUTION
-// This version of SafeMath should only be used with Solidity 0.8 or later,
-// because it relies on the compiler's built in overflow checks.
+/*
+PRECAUCIÓN
+Esta versión de SafeMath debería solo ser usada con Solidity 0.8 o posterior, ya que se basa 
+en las comprobaciones de desbordamiento integradas del compilador.
 
-/**
- * @dev Wrappers over Solidity's arithmetic operations.
- *
- * NOTE: `SafeMath` is no longer needed starting with Solidity 0.8. The compiler
- * now has built in overflow checking.
- */
+Capas de seguridad sobre operaciones aritméticas.
+NOTA: "SafeMath" ya no es requerida a partir de Solidity 0.8. El compilador ahora tiene 
+verificaciones de desbordamiento integradas.
+*/
 library SafeMath {
-    /**
-     * @dev Returns the addition of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
+
+    // Retorna la adición de dos enteros sin signo, con una bandera de desbordamiento.
     function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {
         unchecked {
             uint256 c = a + b;
@@ -101,11 +85,7 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the substraction of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
+    // Retorna la substracción de dos enteros sin signo, con una bandera de desbordamiento.
     function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {
         unchecked {
             if (b > a) return (false, 0);
@@ -113,16 +93,12 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
+    // Retorna la multiplicación de dos enteros sin signo, con una bandera de desbordamiento.
     function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {
         unchecked {
-            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-            // benefit is lost if 'b' is also tested.
-            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
+            // Optimización de Gas: esto es más barato que requerir que "a" no sea 0, pero el 
+            // beneficio es perdido si "b" a también se le hace la prueba.
+            // Ver: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
             if (a == 0) return (true, 0);
             uint256 c = a * b;
             if (c / a != b) return (false, 0);
@@ -130,11 +106,7 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the division of two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
+    // Retorna la división de dos enteros sin signo, con una bandera de desbordamiento.
     function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {
         unchecked {
             if (b == 0) return (false, 0);
@@ -142,11 +114,8 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
+    // Retorna el residuo de la división de dos enteros sin signo, con una bandera de división 
+    // por 0.
     function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {
         unchecked {
             if (b == 0) return (false, 0);
@@ -154,91 +123,51 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     *
-     * - Addition cannot overflow.
-     */
+    // Retorna la adición de dos enteros sin signo, revirtiendo el desbordamiento. 
+    // Contraparte del operador "+" de Solidity.
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         return a + b;
     }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
+    
+    // Retorna la resta de dos enteros sin signo, revirtiendo el desbordamiento (cuando el 
+    // resultado es negativo). Contraparte del operador "-" de Solidity.
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
         return a - b;
     }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     *
-     * - Multiplication cannot overflow.
-     */
+    
+    // Retorna la multiplicación de dos enteros sin signo, revirtiendo el desbordamiento. 
+    // Contraparte del operador "*" de Solidity.
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         return a * b;
     }
 
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator.
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+    // Retorna la división de dos enteros sin signo, revirtiendo la división por 0. El resultado 
+    // es redondeado a 0. Requiere que el divisor no sea 0.
+    // Contraparte del operador "/" de Solidity.
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         return a / b;
     }
 
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+    /*
+    Retorna el residuo de la división de dos enteros sin signo (módulo sin signo), revirtiendo 
+    la división por 0. Requiere que el divisor no sea 0. La función usa un opcode "revert" (que 
+    deja el Gas remanente intacto), mientras que Solidity usa un opcode inválido para revertir 
+    (consumiendo todo el Gas remanente).
+    Contraparte del operador "%" de Solidity.
+    */
     function mod(uint256 a, uint256 b) internal pure returns (uint256) {
         return a % b;
     }
 
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-     * overflow (when the result is negative).
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {trySub}.
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
+    /*
+    Retorna la substracción de dos enteros sin signo, revirtiendo el desbordamiento (cuando el 
+    resultado es negativo) y generando un mensaje.
+    
+    PRECAUCIÓN: Esta función es obsoleta debido a que requiere reservar memoria innecesariamente 
+    para el mensaje. Para correcciones personalizadas usar "trySub".
+    
+    Contraparte del operador "-" de Solidity.
+    */
     function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         unchecked {
             require(b <= a, errorMessage);
@@ -246,22 +175,15 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting with custom message on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+    /*
+    Retorna la división de dos enteros sin signo (módulo sin signo), revirtiendo 
+    la división por 0 con un mensaje de error. El resultado es redondeado hacia 0. Requiere que 
+    el divisor no sea 0. 
+    
+    Contraparte del operador "%" de Solidity. La función usa un opcode "revert" (que deja el Gas 
+    remanente intacto), mientras que Solidity usa un opcode inválido para revertir (consumiendo 
+    todo el Gas remanente).
+    */
     function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         unchecked {
             require(b > 0, errorMessage);
@@ -269,21 +191,17 @@ library SafeMath {
         }
     }
 
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting with custom message when dividing by zero.
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {tryMod}.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+    /*
+    Retorna el residuo de la división de dos enteros sin signo (módulo sin signo), revirtiendo 
+    la división por 0 con un mensaje de error. Requiere que el divisor no sea 0.
+    
+    PRECAUCIÓN: Esta función es obsoleta debido a que requiere reservar memoria innecesariamente 
+    para el mensaje. Para correcciones personalizadas usar "trySub".
+    
+    Contraparte del operador "%" de Solidity. La función usa un opcode "revert" (que deja el Gas 
+    remanente intacto), mientras que Solidity usa un opcode inválido para revertir (consumiendo 
+    todo el Gas remanente).
+    */
     function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         unchecked {
             require(b > 0, errorMessage);
