@@ -286,8 +286,8 @@ library Address {
     plana es una sustitución insegura para una llamada a una función: en vez de ello, usar esta 
     función.
     
-    Si "target" revierte con un motivo de reversión, es "burbujeado" por esta función (como las 
-    llamadas de gulares a funciones de Solidity)
+    Si "target" se revierte con un motivo de reversión, la cancelación es transmitida por esta 
+    función (como las llamadas de gulares a funciones de Solidity)
     
     Retorna los datos crudos. Para convertir al valor de retorno esperado, usar https://solidi
     ty.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encod
@@ -366,10 +366,10 @@ library Address {
         if (success) {
             return returndata;
         } else {
-            // Buscar una razón para revertir y "burbujearlo" si se encuentra dicha razón.
+            // Buscar una razón para revertir y transmitir el error si se encuentra dicha razón.
             if (returndata.length > 0) {
-                // La forma más fácil de "burbujear" la razón para revertir es usando memoria via 
-                // ensamblador.
+                // La forma más fácil de transmitir el error la razón para revertir es usando 
+                // memoria via ensamblador.
 
                 // solhint-disable-next-line no-inline-assembly
                 assembly {
