@@ -211,74 +211,68 @@ library SafeMath {
 }
 
 /*
- * @dev Provides information about the current execution context, including the
- * sender of the transaction and its data. While these are generally available
- * via msg.sender and msg.data, they should not be accessed in such a direct
- * manner, since when dealing with meta-transactions the account sending and
- * paying for execution may not be the actual sender (as far as an application
- * is concerned).
- *
- * This contract is only required for intermediate, library-like contracts.
- */
+Provee información acerca del contexto de ejecución actual, incluyendo el remitente de la 
+transacción y sus datos, aunque estos son generalmente accesibles via "msg.sender" y "msg.data", 
+estos no deberían ser accedidos de manera tan directa, ya que cuando se trabaja con 
+meta-transacciones la cuenta desde la que se envía y paga por la ejecución podría no ser el 
+remitente real (encuanto a una aplicación se refiere).
+
+Este contrato es requerido solamente para contratos tipo librería intermedios.
+*/
 abstract contract Context {
     function _msgSender() internal view virtual returns (address) {
         return msg.sender;
     }
 
     function _msgData() internal view virtual returns (bytes calldata) {
-        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
-        return msg.data;
+        // Silencia la advertencia de mutabilidad del estado sin generar bytecode.
+        // Ver: https://github.com/ethereum/solidity/issues/2691
+        this;
+        return msg.data; 
     }
 }
 
-/**
- * @dev Collection of functions related to the address type, from contracts/utils/Address
- */
+// Funciones relacionadas con el tipo de dirección ("address"), de contracts/utils/Address
 library Address {
-    /**
-     * @dev Returns true if `account` is a contract.
-     *
-     * [IMPORTANT]
-     * ====
-     * It is unsafe to assume that an address for which this function returns
-     * false is an externally-owned account (EOA) and not a contract.
-     *
-     * Among others, `isContract` will return false for the following
-     * types of addresses:
-     *
-     *  - an externally-owned account
-     *  - a contract in construction
-     *  - an address where a contract will be created
-     *  - an address where a contract lived, but was destroyed
-     * ====
-     */
-    function isContract(address account) internal view returns (bool) {
-        // This method relies on extcodesize, which returns 0 for contracts in
-        // construction, since the code is only stored at the end of the
-        // constructor execution.
 
+    /*
+    Retorna verdadero si "account" es un contrato.
+    
+    IMPORTANTE: no es seguro asumir que una dirección para la cual esta función retorne falso es 
+    una cuenta externa (externally-owned account, EOA) y no un contrato.
+    
+    Entre otras "isContract" retornará falso para los siguientes tipos de direcciones:
+    	-una EOA.
+    	-un contrato en construcción.
+    	-una dirección donde un contrato será creado.
+    	-una dirección donde vivió un contrato, pero fue destruido.
+    */
+    function isContract(address account) internal view returns (bool) {
+        
+        // Este método se basa en "extcodesize()", que retorna 0 para contratos en construcción 
+        // ya que el código es solo almacenado al final de la ejecución del constructor.
         uint256 size;
         // solhint-disable-next-line no-inline-assembly
         assembly { size := extcodesize(account) }
         return size > 0;
     }
-
-    /**
-     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
-     * `recipient`, forwarding all available gas and reverting on errors.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost
-     * of certain opcodes, possibly making contracts go over the 2300 gas limit
-     * imposed by `transfer`, making them unable to receive funds via
-     * `transfer`. {sendValue} removes this limitation.
-     *
-     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
-     *
-     * IMPORTANT: because control is transferred to `recipient`, care must be
-     * taken to not create reentrancy vulnerabilities. Consider using
-     * {ReentrancyGuard} or the
-     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
-     */
+    
+    /*
+    Reemplazo de "transfer()" de Solidity: manda la cantidad "amount" a "recipient", reenviendo 
+    todo el gas disponible y revirtiendo errores.
+    
+    https://eips.ethereum.org/EIPS/eip-1884[EIP1884] incrementa el costo de ciertos opcodes, 
+    posiblemente haciendo que los contratos superen el límite de 2300 de Gas impuesto por 
+    "transfer()" haciéndolo incapaz de recibir fondos por medio de "transfer()". La función 
+    "sendValue()" elimina esta limitación.
+    
+    https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
+    
+    IMPORTANTE: ya que el control es transferido a "recipient", se debe tener cuidado de no crear 
+    vulnerabilidades "reetrancy"?. Considere usar "ReentrancyGuard" o el patrón https://solidity.
+    readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pat
+    tern[checks-effects-interactions pattern]
+    */
     function sendValue(address payable recipient, uint256 amount) internal {
         require(address(this).balance >= amount, "Address: insufficient balance");
 
@@ -287,59 +281,46 @@ library Address {
         require(success, "Address: unable to send value, recipient may have reverted");
     }
 
-    /**
-     * @dev Performs a Solidity function call using a low level `call`. A
-     * plain`call` is an unsafe replacement for a function call: use this
-     * function instead.
-     *
-     * If `target` reverts with a revert reason, it is bubbled up by this
-     * function (like regular Solidity function calls).
-     *
-     * Returns the raw returned data. To convert to the expected return value,
-     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].
-     *
-     * Requirements:
-     *
-     * - `target` must be a contract.
-     * - calling `target` with `data` must not revert.
-     *
-     * _Available since v3.1._
-     */
+    /*
+    Ejecuta una llamada a una función de Solidity con otra llamada de bajo nivel. Una llamada 
+    plana es una sustitución insegura para una llamada a una función: en vez de ello, usar esta 
+    función.
+    
+    Si "target" revierte con un motivo de reversión, es "burbujeado" por esta función (como las 
+    llamadas de gulares a funciones de Solidity)
+    
+    Retorna los datos crudos. Para convertir al valor de retorno esperado, usar https://solidi
+    ty.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encod
+    ing-and-decoding-functions[`abi.decode`].
+    
+    Requerimientos:
+        -La variable "target" debe ser un contrato.
+        -Llamar a "target" con "data" no debe revertirse.
+    */ // Traducción no clara.
     function functionCall(address target, bytes memory data) internal returns (bytes memory) {
       return functionCall(target, data, "Address: low-level call failed");
     }
 
-    /**
-     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
-     * `errorMessage` as a fallback revert reason when `target` reverts.
-     *
-     * _Available since v3.1._
-     */
+    // Igual que "xref-Address-functionCall-address-bytes-"["functionCall"], pero con "errorMessage" 
+    // como razón de reversión cuando "target" se revierte. // Traducción no clara.
     function functionCall(address target, bytes memory data, string memory errorMessage) internal returns (bytes memory) {
         return functionCallWithValue(target, data, 0, errorMessage);
     }
-
-    /**
-     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
-     * but also transferring `value` wei to `target`.
-     *
-     * Requirements:
-     *
-     * - the calling contract must have an ETH balance of at least `value`.
-     * - the called Solidity function must be `payable`.
-     *
-     * _Available since v3.1._
-     */
+    
+    /*
+    Igual que "xref-Address-functionCall-address-bytes-"["functionCall"], pero además transfiere 
+    "value" a "target".
+    Requerimientos:
+        -El contrato llamado de tener balance de ETH de al menos "value".
+        -La función de Solidity llamada debe ser pagable.
+    */
     function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {
         return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
     }
 
-    /**
-     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
-     * with `errorMessage` as a fallback revert reason when `target` reverts.
-     *
-     * _Available since v3.1._
-     */
+    // Igual que "xref-Address-functionCallWithValue-address-bytes-uint256-"
+    // ["functionCallWithValue"], pero con "errorMessage" como razón de reversión cuando "target" 
+    // se revierte. // Traducción no clara.
     function functionCallWithValue(address target, bytes memory data, uint256 value, string memory errorMessage) internal returns (bytes memory) {
         require(address(this).balance >= value, "Address: insufficient balance for call");
         require(isContract(target), "Address: call to non-contract");
@@ -349,22 +330,14 @@ library Address {
         return _verifyCallResult(success, returndata, errorMessage);
     }
 
-    /**
-     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
-     * but performing a static call.
-     *
-     * _Available since v3.3._
-     */
+    // Igual que "xref-Address-functionCall-address-bytes-"["functionCall"] pero ejecutando una 
+    // llamada estática.
     function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
         return functionStaticCall(target, data, "Address: low-level static call failed");
     }
 
-    /**
-     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
-     * but performing a static call.
-     *
-     * _Available since v3.3._
-     */
+    // Igual que "xref-Address-functionCall-address-bytes-string-"["functionCall"] pero 
+    // ejecutando una llamada estática.
     function functionStaticCall(address target, bytes memory data, string memory errorMessage) internal view returns (bytes memory) {
         require(isContract(target), "Address: static call to non-contract");
 
@@ -373,22 +346,14 @@ library Address {
         return _verifyCallResult(success, returndata, errorMessage);
     }
 
-    /**
-     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
-     * but performing a delegate call.
-     *
-     * _Available since v3.4._
-     */
+    // Igual que "xref-Address-functionCall-address-bytes-"["functionCall"], pero ejecutando una 
+    // llamada delegada.
     function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
         return functionDelegateCall(target, data, "Address: low-level delegate call failed");
     }
 
-    /**
-     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
-     * but performing a delegate call.
-     *
-     * _Available since v3.4._
-     */
+    // Igual que "xref-Address-functionCall-address-bytes-string-"["functionCall"], pero 
+    // ejecutando una llamada delegada.
     function functionDelegateCall(address target, bytes memory data, string memory errorMessage) internal returns (bytes memory) {
         require(isContract(target), "Address: delegate call to non-contract");
 
@@ -401,9 +366,10 @@ library Address {
         if (success) {
             return returndata;
         } else {
-            // Look for revert reason and bubble it up if present
+            // Buscar una razón para revertir y "burbujearlo" si se encuentra dicha razón.
             if (returndata.length > 0) {
-                // The easiest way to bubble the revert reason is using memory via assembly
+                // La forma más fácil de "burbujear" la razón para revertir es usando memoria via 
+                // ensamblador.
 
                 // solhint-disable-next-line no-inline-assembly
                 assembly {
