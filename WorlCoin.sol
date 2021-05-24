@@ -73,6 +73,7 @@ en las comprobaciones de desbordamiento integradas del compilador.
 Capas de seguridad sobre operaciones aritméticas.
 NOTA: "SafeMath" ya no es requerida a partir de Solidity 0.8. El compilador ahora tiene 
 verificaciones de desbordamiento integradas.
+NOTA: revertir es sinónimo de cancelar el proceso en cuestión.
 */
 library SafeMath {
 
@@ -295,14 +296,14 @@ library Address {
     
     Requerimientos:
         -La variable "target" debe ser un contrato.
-        -Llamar a "target" con "data" no debe revertirse.
-    */ // Traducción no clara.
+        -Llamar a "target" con "data" no debe revertirse (cancelarse).
+    */
     function functionCall(address target, bytes memory data) internal returns (bytes memory) {
       return functionCall(target, data, "Address: low-level call failed");
     }
 
     // Igual que "xref-Address-functionCall-address-bytes-"["functionCall"], pero con "errorMessage" 
-    // como razón de reversión cuando "target" se revierte. // Traducción no clara.
+    // como razón de reversión cuando "target" se revierte.
     function functionCall(address target, bytes memory data, string memory errorMessage) internal returns (bytes memory) {
         return functionCallWithValue(target, data, 0, errorMessage);
     }
@@ -320,7 +321,7 @@ library Address {
 
     // Igual que "xref-Address-functionCallWithValue-address-bytes-uint256-"
     // ["functionCallWithValue"], pero con "errorMessage" como razón de reversión cuando "target" 
-    // se revierte. // Traducción no clara.
+    // se revierte.
     function functionCallWithValue(address target, bytes memory data, uint256 value, string memory errorMessage) internal returns (bytes memory) {
         require(address(this).balance >= value, "Address: insufficient balance for call");
         require(isContract(target), "Address: call to non-contract");
@@ -383,63 +384,54 @@ library Address {
     }
 }
 
-/**
- * from contracts/access/Ownable.sol
- * @dev Contract module which provides a basic access control mechanism, where
- * there is an account (an owner) that can be granted exclusive access to
- * specific functions.
- *
- * By default, the owner account will be the one that deploys the contract. This
- * can later be changed with {transferOwnership}.
- *
- * This module is used through inheritance. It will make available the modifier
- * `onlyOwner`, which can be applied to your functions to restrict their use to
- * the owner.
- */
+
+/*
+De contracts/access/Ownable.sol
+Módulo de contrato que proveé un mecanismo de control de acceso básico, donde hay una cuenta (un 
+propetario) a la que le puede ser concedido acceso exclusivo a funciones específicas.
+
+Por defecto, el propietario de la cuenta será el que depliegue el contrato. Esto puede ser 
+modificado posteriormente con "transferOwnership()".
+
+Este módulo es usado a través de herencia. Hará disponible el modificador "onlyOwner", el cual 
+puede ser aplicado a nuestras funciones para restringir su al propietario.
+*/
 abstract contract Ownable is Context {
     address private _owner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-    /**
-     * @dev Initializes the contract setting the deployer as the initial owner.
-     */
+    // Inicializa el contrato, estableciendo a quien lo despliega como el propetario inicial.
     constructor () {
         _owner = 0xc03E6953B2015ed86258EB63808CC822E77805D2;
         emit OwnershipTransferred(address(0), _owner);
     }
 
-    /**
-     * @dev Returns the address of the current owner.
-     */
+    // Retorna la dirección del propietario actual.
     function owner() public view virtual returns (address) {
         return _owner;
     }
 
-    /**
-     * @dev Throws if called by any account other than the owner.
-     */
+    // Es lanzada si es llamada por cualquier cuenta que no sea la propietaria.
     modifier onlyOwner() {
         require(owner() == _msgSender(), "Ownable: caller is not the owner");
         _;
     }
 
-    /**
-     * @dev Leaves the contract without owner. It will not be possible to call
-     * `onlyOwner` functions anymore. Can only be called by the current owner.
-     *
-     * NOTE: Renouncing ownership will leave the contract without an owner,
-     * thereby removing any functionality that is only available to the owner.
-     */
+    /*
+    Deja al contrato sin su propietario. No será posible llamar a las funciones "onlyOwner()".
+    Solo puede ser llamada por el propietario actual.
+    
+    NOTA: Renunciar a la propiedad dejará al contrato sin dueño, removiendo cualquier 
+    funcionalidad que es solo accesible por el propietario.
+    */
     function renounceOwnership() public virtual onlyOwner {
         emit OwnershipTransferred(_owner, address(0));
         _owner = address(0);
     }
 
-    /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Can only be called by the current owner.
-     */
+    // Transfiere la titularidad del contrato a otra cuenta "newOwner".
+    // Solo puede ser llamada por el propietario actual.
     function transferOwnership(address newOwner) public virtual onlyOwner {
         require(newOwner != address(0), "Ownable: new owner is the zero address");
         emit OwnershipTransferred(_owner, newOwner);
@@ -447,7 +439,7 @@ abstract contract Ownable is Context {
     }
 }
 
-/* Interfaces from uniswapV2 https://uniswap.org/docs/v2/protocol-overview/how-uniswap-works */
+// Interfaces de uniswapV2: https://uniswap.org/docs/v2/protocol-overview/how-uniswap-works
 interface IUniswapV2Factory {
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
 
@@ -654,9 +646,8 @@ contract WorldCoin is Context, IERC20, Ownable {
     using SafeMath for uint256;
     using Address for address;
 
-/* mapping (_KeyType => _ValueType) 
- * https://www.tutorialspoint.com/solidity/solidity_mappings.htm
-*/
+    //Mapeo (tipo_de_la_llave => tipo_del_valor) 
+    //https://www.tutorialspoint.com/solidity/solidity_mappings.htm
     mapping (address => uint256) private _rOwned;
     mapping (address => uint256) private _tOwned;
     mapping (address => mapping (address => uint256)) private _allowances;
@@ -712,14 +703,15 @@ contract WorldCoin is Context, IERC20, Ownable {
         _rOwned[owner()] = _rTotal;
         
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
-         // Create a uniswap pair for this new token
+
+        // Crea un par intercambiable para este nuevo token.
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
 
-        // set the rest of the contract variables
+        // Inicializar el resto de las variables del contrato.
         uniswapV2Router = _uniswapV2Router;
         
-        //exclude owner and this contract from fee
+        // Excluir al propietario y a este contrato de impuestos.
         _isExcludedFromFee[owner()] = true;
         _isExcludedFromFee[address(this)] = true;
         
@@ -876,7 +868,7 @@ contract WorldCoin is Context, IERC20, Ownable {
         emit SwapAndLiquifyEnabledUpdated(_enabled);
     }
     
-     //to recieve ETH from uniswapV2Router when swaping
+    // Para recibir ETH de uniswapV2Router cuando se esté intercambiando.
     receive() external payable {}
 
     function _reflectFee(uint256 rFee, uint256 tFee) private {
