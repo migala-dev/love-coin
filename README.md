@@ -50,18 +50,22 @@ Para compilar el contrato dirigite a la carpeta ruta del proyecto: migala-token/
     truffle compile
 Recuerda que el contrato usa la versión de Solidity ^0.8.0, si deseas usar cualquier otra versión del compilador puedes cambiar la versión en el archivo [truffle-config.js](https://github.com/migala-dev/migala-token/blob/main/tao-token/truffle-config.js) 
 ## Deploy 
-Actualmente el archivo [truffle-config.js](https://github.com/migala-dev/migala-token/blob/main/tao-token/truffle-config.js) tiene configurado 3 networks: Local - [Kovan](https://kovan-testnet.github.io/website/) - [CheapETH](https://cheapeth.org/). Si deseas hacer el deploy del contrato en tu red local te recomendamos usar [Ganache](https://www.trufflesuite.com/ganache). Kovan es una red de pruebas, el deploy actual lo puedes encontrar en: https://kovan.etherscan.io/address/0x68dcd57dd218400a85ecf16f24e348e24481aec3
+Actualmente el archivo [truffle-config.js](https://github.com/migala-dev/migala-token/blob/main/tao-token/truffle-config.js) tiene configurado 3 networks: Local - [Kovan](https://kovan-testnet.github.io/website/) - [CheapETH](https://cheapeth.org/). 
+
+Si deseas hacer el deploy del contrato en tu red local te recomendamos usar [Ganache](https://www.trufflesuite.com/ganache). 
+Kovan es una red de pruebas, el deploy actual lo puedes encontrar en: https://kovan.etherscan.io/address/0x68dcd57dd218400a85ecf16f24e348e24481aec3
 CheapETH es Ethereum pero con costos de transacción mucho mas barato, el deploy actual lo puedes encontrar en: https://explore.cheapswap.io/account/0xb9d5c42003f09ee4555e4e17a832fbb3db150150
 Si deseas hacer tu mismo el deploy del contrato lo puedes hacer con el comando:
 
     truffle migrate --network NOMBRE_DE_NETWORK
-Por supuesto puedes agregar otras redes en el archivo de configuración. 
+Por supuesto puedes agregar otras redes en el archivo de configuración. Recuerda agregar tu llaves privada al archivo de configuración para poder hacer el deploy del contrato.
 
 # Como Contribuir
 Puedes contribuir con el proyecto siguiendo el ciclo básico clone, branch, commit y push. Puedes aprender de esto [aquí](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.mx.md). 
 
 # Recursos 
 ¿Deseas aprender? Te dejo la recomendación personal de Moonify, esta lista esta en orden ascendente de dificultad: 
+
 **Introducción**
  - [¿Qué es el BLOCKCHAIN y por qué DEBERÍA importarte?](https://www.youtube.com/watch?v=V9Kr2SujqHw)
  - [Por qué el Dinero No Vale NADA (y por qué las Criptomonedas podrían Sustituirlo)](https://www.youtube.com/watch?v=pqEidVW9da0)
