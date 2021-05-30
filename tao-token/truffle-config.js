@@ -1,6 +1,9 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const privateKey = "35a0de6f4527181d1d305513e1cdce4753cb0839f3b39fa5f3a4a970004ae829";
+const privateKey = "TULLAVESPRIVADA";
 const endpointUrl = "https://kovan.infura.io/v3/a3845d8738db4c89ae9804daf31515f2"
+const cethUrl = "https://rpc.cheapeth.org/rpc";
+const Web3 = require("web3");
+const web3 = new Web3();
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -26,7 +29,6 @@ const endpointUrl = "https://kovan.infura.io/v3/a3845d8738db4c89ae9804daf31515f2
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
-
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -62,6 +64,17 @@ module.exports = {
       gas: 8000000,
       gasPrice: 25000000000,
       network_id: 42
+    },
+      // cheatETH network: https://cheapeth.org/
+    cheapeth: {
+      provider: function() {
+          return new HDWalletProvider(
+              [privateKey],
+              cethUrl
+          )
+      },
+      network_id: 777,
+      gasPrice: 2000000000
     }
   },
 
