@@ -64,7 +64,7 @@ Por supuesto puedes agregar otras redes en el archivo de configuración. Recuerd
 Puedes contribuir con el proyecto siguiendo el ciclo básico clone, branch, commit y push. Puedes aprender de esto [aquí](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.mx.md). 
 
 # Recursos 
-¿Deseas aprender? Te dejo la recomendación personal de Moonify, esta lista esta en orden ascendente de dificultad: 
+¿Deseas aprender? Te dejo la recomendación personal de Moonify: 
 
 **Introducción**
  - [¿Qué es el BLOCKCHAIN y por qué DEBERÍA importarte?](https://www.youtube.com/watch?v=V9Kr2SujqHw)
