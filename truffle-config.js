@@ -1,5 +1,5 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const privateKey = "TULLAVESPRIVADA";
+const privateKey = "3c657caa001e9c0b224f3e0da004d7fc4da483fc05794a114f399dd65e0fc85e";
 const endpointUrl = "https://kovan.infura.io/v3/a3845d8738db4c89ae9804daf31515f2"
 const cethUrl = "https://rpc.cheapeth.org/rpc";
 const Web3 = require("web3");
