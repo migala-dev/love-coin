@@ -1,5 +1,5 @@
-const Tao = artifacts.require("Tao");
+const Love = artifacts.require("Love");
 
 module.exports = async function (deployer) {
-    await deployer.deploy(Tao);
+    await deployer.deploy(Love);
 }
