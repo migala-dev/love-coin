@@ -1,4 +1,9 @@
 contracts/.placeholder
 test/.placeholder
-build
 node_modules
+*/.node_modules
+.vscode
+.git
+.env
+*.log
+
