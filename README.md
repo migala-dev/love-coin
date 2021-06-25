@@ -2,11 +2,11 @@
 El Love Coin es un meta-token realizado con [Solidity](https://docs.soliditylang.org/en/v0.8.4/) + [OpenZepellin](https://openzeppelin.com/). Al ser una meta-token no posee un estándar como ERC20 o ERC777 pero tiene integración con [Open Gas Station Network (GSN)](https://docs.opengsn.org/) para cubrir los costos de transacción de los usuarios. El contrato principal lo pueden encontrar en contracts/token.sol.
 
 ## Playground
-En la carpeta app podrás encontrar un playground donde podrás realizar transacciones de Love sin necesidad de pagar por el gas. Para correr el playground usa 
+En la carpeta app podrás encontrar un playground donde podrás realizar transacciones de Love sin necesidad de pagar por el gas. Para correr el playground usa dentro de la carpeta app.
 ```bash
 serve
 ```
-dentro de la carpeta app. Si deseas modificar el JavaScript para experimentar con Web3 debes usar browserfy: 
+Si deseas modificar index.js para experimentar con Web3 debes usar browserfy: 
 ```bash 
 npm install -g browserify
 ```
@@ -14,7 +14,7 @@ Una vez instalado browserfy:
 ```bash
 browserfy index.js > app.js
 ```
-Ahora ya puedes usar serve para experimentar con tus cambios.
+Ahora ya puedes usar serve para observar tus cambios.
 
 # Como Contribuir
 Puedes contribuir con el proyecto siguiendo el ciclo básico clone, branch, commit y push. Puedes aprender de esto [aquí](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.mx.md). 
