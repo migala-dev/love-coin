@@ -1,64 +1,20 @@
-# Token WorlCoin
+# Love Coin
+El Love Coin es un meta-token realizado con [Solidity](https://docs.soliditylang.org/en/v0.8.4/) + [OpenZepellin](https://openzeppelin.com/). Al ser una meta-token no posee un estándar como ERC20 o ERC777 pero tiene integración con Open Gas Station Network (GSN) para cubrir los costos de transacción de los usuarios. El contrato principal lo pueden encontrar en contracts/token.sol.
 
-Token construido sobre Ethereum usando Solidity para Migala. Para empezar a aprender te dejamos algunos recursos abajo. 
-
-## Convenciones para Solidity
-
-### Comentarios
-
-Usar comentarios de línea (`//`) para comentarios cortos.
-
-Ejemplo:
-
+## Playground
+En la carpeta app podrás encontrar un playground donde podrás realizar transacciones de Love sin necesidad de pagar por el gas. Para correr el playground usa 
+```bash
+serve
 ```
-// Comentario corto ...
-// continua comentario ...
-// continua comentario ...
+dentro de la carpeta app. Si deseas modificar el JavaScript para experimentar con Web3 debes usar browserfy: 
+```bash 
+npm install -g browserify
 ```
-
-Usar comentarios de bloque (`/* */`) en comentarios largos de 4 o más líneas, usando una línea aparte para cada indicador de apertura y cierre.
-
-Ejemplo:
-
+Una vez instalado browserfy:
+```bash
+browserfy index.js > app.js
 ```
-/*
-Comentario de bloque ...
-continua comentario ...
-continua comentario ...
-continua comentario ...
-*/
-```
-
-### Espacios
-
-Se prefieren los espacios como método de indentación, se deben usar 4 espacios para ello.
-
-### Máximo tamaño de línea
-
-Una línea no debe sobrepasar 99 caracteres.
-
-# Tao-Token
-Este es un token realizado con [Solidity](https://docs.soliditylang.org/en/v0.8.4/) + [OpenZepellin](https://openzeppelin.com/) tiene 3 características: acuñado de tokens (mintable), quemado de tokens (burnable) y la opción de pausar transferencias (pausable). El contrato principal lo pueden encontrar en tao-token/contracts/Tao.sol
-## Requisitos
-Para poder hacer el deploy o compilar el token necesitaran de [Node](https://nodejs.org/en/) y [Truffle](https://www.trufflesuite.com/) . Existen varios recursos y guías de como instalar Node en tu sistema operativo, debes instalar truffle con el siguiente comando:
-
-    npm install -g truffle
-
-## Compilar el contrato 
-Para compilar el contrato dirigite a la carpeta ruta del proyecto: migala-token/tao-token y corre el siguiente comando:
-
-    truffle compile
-Recuerda que el contrato usa la versión de Solidity ^0.8.0, si deseas usar cualquier otra versión del compilador puedes cambiar la versión en el archivo [truffle-config.js](https://github.com/migala-dev/migala-token/blob/main/tao-token/truffle-config.js) 
-## Deploy 
-Actualmente el archivo [truffle-config.js](https://github.com/migala-dev/migala-token/blob/main/tao-token/truffle-config.js) tiene configurado 3 networks: Local - [Kovan](https://kovan-testnet.github.io/website/) - [CheapETH](https://cheapeth.org/). 
-
-Si deseas hacer el deploy del contrato en tu red local te recomendamos usar [Ganache](https://www.trufflesuite.com/ganache). 
-Kovan es una red de pruebas, el deploy actual lo puedes encontrar en: https://kovan.etherscan.io/address/0x68dcd57dd218400a85ecf16f24e348e24481aec3
-CheapETH es Ethereum pero con costos de transacción mucho mas barato, el deploy actual lo puedes encontrar en: https://explore.cheapswap.io/account/0xb9d5c42003f09ee4555e4e17a832fbb3db150150
-Si deseas hacer tu mismo el deploy del contrato lo puedes hacer con el comando:
-
-    truffle migrate --network NOMBRE_DE_NETWORK
-Por supuesto puedes agregar otras redes en el archivo de configuración. Recuerda agregar tu llaves privada al archivo de configuración para poder hacer el deploy del contrato.
+Ahora ya puedes usar serve para experimentar con tus cambios.
 
 # Como Contribuir
 Puedes contribuir con el proyecto siguiendo el ciclo básico clone, branch, commit y push. Puedes aprender de esto [aquí](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.mx.md). 
