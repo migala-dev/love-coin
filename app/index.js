@@ -1,6 +1,5 @@
 var Web3 = require('web3')
 const gsn = require('@opengsn/provider')
-const ethers = require('ethers')
 const contract = require('@truffle/contract')
 const contractArtifact = require('../build/contracts/LoveBeta.json')
 const IPaymaster = require('../build/contracts/IPaymaster.json')
